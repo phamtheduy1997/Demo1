@@ -19,7 +19,7 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        Log.d("bett","onConnnectionFailed"+connectionResult)
+        Log.d("Connect","onConnnectionFailed"+connectionResult)
     }
     private val RC_SIGN_IN = 1
     private var mGoogleApiClient: GoogleApiClient? = null
