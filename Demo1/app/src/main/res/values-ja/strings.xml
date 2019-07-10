@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Demo1</string>
+    <string name="signin">サインイン</string>
+    <string name="speak">話す、友達になる、そして入る</string>
+    <string name="email">郵便物</string>
+    <string name="password">パスワード</string>
+</resources>
