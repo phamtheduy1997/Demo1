@@ -71,9 +71,15 @@
               android:textColor="#fff"
               android:textSize="15sp"
               android:layout_below="@id/edt_password"
-              android:layout_marginTop="70dp"
+              android:layout_marginTop="20dp"
               android:textAlignment="center"
     />
+    <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_gg_signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/btn_signin"/>
 
 
 </RelativeLayout>
