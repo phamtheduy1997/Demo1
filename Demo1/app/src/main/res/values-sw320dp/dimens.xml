@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<dimen name="avatar">73.700005dp</dimen>
+<dimen name="marginTopAvatar">67.0dp</dimen>
+<dimen name="mail">67.0dp</dimen>
+<dimen name="tv_signin">40.2sp</dimen>
+<dimen name="mTopSignIn">13.400001dp</dimen>
+<dimen name="edt_mail">11.39sp</dimen>
+<dimen name="padEdt">6.7000003dp</dimen>
+<dimen name="mTopEdtMail">46.9dp</dimen>
+<dimen name="edt_password">11.39sp</dimen>
+<dimen name="mTopPass">10.05dp</dimen>
+<dimen name="sizeBTNSignIn">10.05sp</dimen>
+<dimen name="mTopBTNSignIn">13.400001dp</dimen>
+<dimen name="mTopSignInButton">6.7000003dp</dimen>
+<dimen name="padHomeSignIn">20.1dp</dimen>
+<dimen name="padHomeSignInLAND">80.4dp</dimen>
+<dimen name="mTopLANDAvatar">46.9dp</dimen>
+<dimen name="mTopMail">43.55dp</dimen>
+<dimen name="tvSigninLAND">23.45dp</dimen>
+<dimen name="mTopSignInLAND">6.7000003dp</dimen>
+<dimen name="tvSpeak">16.75sp</dimen>
+<dimen name="mTopEdtMailLAND">6.7000003dp</dimen>
+<dimen name="mTopPassLAND">10.05dp</dimen>
+<dimen name="mTopBTNSignInLAND">13.400001dp</dimen>
+<dimen name="widthBTNSignInLAND">0.0dp</dimen>
+<dimen name="kc">3.3500001dp</dimen>
+<dimen name="padEdtPass">10.05dp</dimen>
+
+</resources>

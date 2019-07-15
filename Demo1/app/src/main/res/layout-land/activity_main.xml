@@ -7,91 +7,90 @@
         android:layout_height="match_parent"
         android:background="@drawable/background"
         android:layout_centerHorizontal="true"
-        android:paddingLeft="120dp"
-        android:paddingRight="120dp"
+        android:paddingLeft="@dimen/padHomeSignInLAND"
+        android:paddingRight="@dimen/padHomeSignInLAND"
         tools:context=".MainActivity">
 
     <RelativeLayout
             android:id="@+id/im_avatar"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="@dimen/avatar"
+            android:layout_height="@dimen/avatar"
+            android:layout_marginTop="@dimen/mTopLANDAvatar"
             android:background="@drawable/avatar"
             android:layout_centerHorizontal="true"
     />
-    <ImageView android:layout_width="100dp"
-               android:layout_height="100dp"
+    <ImageView android:layout_width="@dimen/mail"
+               android:layout_height="@dimen/mail"
                android:src="@drawable/mail"
                android:layout_centerHorizontal="true"
-               android:layout_marginTop="15dp"
+               android:layout_marginTop="@dimen/mTopMail"
     />
     <TextView android:id="@+id/tv_signin"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="@string/signin"
-              android:textSize="35sp"
+              android:textSize="@dimen/tvSigninLAND"
               android:textColor="#fff"
               android:layout_below="@+id/im_avatar"
               android:layout_centerHorizontal="true"
-              android:layout_marginTop="10dp"/>
+              android:layout_marginTop="@dimen/mTopSignInLAND"/>
     <TextView android:id="@+id/tv_speak"
               android:text="@string/speak"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_below="@id/tv_signin"
               android:layout_centerHorizontal="true"
-              android:textSize="15sp"/>
+              android:textSize="@dimen/tvSpeak"/>
     <EditText android:id="@+id/edt_email"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="#fff"
+              android:background="@drawable/round_edittext"
               android:hint="@string/email"
-              android:textSize="17sp"
-              android:padding="10dp"
+              android:textSize="@dimen/edt_mail"
+              android:padding="@dimen/padEdt"
               android:layout_below="@id/tv_speak"
-              android:layout_marginTop="10dp"
+              android:layout_marginTop="@dimen/mTopEdtMailLAND"
               android:drawableRight="@drawable/information"
               android:textAlignment="center"
     />
     <EditText android:id="@+id/edt_password"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="#fff"
+              android:background="@drawable/round_edittext"
               android:hint="@string/password"
-              android:textSize="17sp"
-              android:padding="10dp"
+              android:textSize="@dimen/edt_password"
+              android:padding="@dimen/padEdt"
               android:layout_below="@id/edt_email"
-              android:layout_marginTop="15dp"
+              android:layout_marginTop="@dimen/mTopPassLAND"
               android:textAlignment="center"
+              android:inputType="textPassword"
     />
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/mTopBTNSignInLAND"
             android:layout_below="@id/edt_password"
             android:gravity="center">
         <Button android:id="@+id/btn_signin"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/widthBTNSignInLAND"
             android:layout_height="wrap_content"
-            android:background="#0F0F0F"
+            android:background="@drawable/round_btn_signin"
             android:text="@string/signin"
             android:textColor="#fff"
-            android:textSize="15sp"
+            android:textSize="@dimen/sizeBTNSignIn"
             android:textAlignment="center"
             android:layout_weight="1"/>
-        <LinearLayout android:layout_width="5dp"
+        <LinearLayout android:layout_width="@dimen/kc"
                       android:layout_height="match_parent">
 
         </LinearLayout>
         <com.google.android.gms.common.SignInButton
                 android:id="@+id/btn_gg_signin"
-                android:layout_width="0dp"
+                android:background="@drawable/round_signinbutton"
+                android:layout_width="@dimen/widthBTNSignInLAND"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
     </LinearLayout>
-
-
-
 </RelativeLayout>

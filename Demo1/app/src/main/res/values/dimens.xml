@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="avatar">110dp</dimen>
+    <dimen name="marginTopAvatar">100dp</dimen>
+    <dimen name="mail">100dp</dimen>
+    <dimen name="tv_signin">60sp</dimen>
+    <dimen name="mTopSignIn">20dp</dimen>
+    <dimen name="edt_mail">17sp</dimen>
+    <dimen name="padEdt">10dp</dimen>
+    <dimen name="mTopEdtMail">70dp</dimen>
+    <dimen name="edt_password">17sp</dimen>
+    <dimen name="mTopPass">15dp</dimen>
+    <dimen name="sizeBTNSignIn">15sp</dimen>
+    <dimen name="mTopBTNSignIn">20dp</dimen>
+    <dimen name="mTopSignInButton">10dp</dimen>
+    <dimen name="padHomeSignIn">30dp</dimen>
+    <dimen name="padHomeSignInLAND">120dp</dimen>
+    <dimen name="mTopLANDAvatar">70dp</dimen>
+    <dimen name="mTopMail">65dp</dimen>
+    <dimen name="tvSigninLAND">35dp</dimen>
+    <dimen name="mTopSignInLAND">10dp</dimen>
+    <dimen name="tvSpeak">25sp</dimen>
+    <dimen name="mTopEdtMailLAND">10dp</dimen>
+    <dimen name="mTopPassLAND">15dp</dimen>
+    <dimen name="mTopBTNSignInLAND">20dp</dimen>
+    <dimen name="widthBTNSignInLAND">0dp</dimen>
+    <dimen name="kc">5dp</dimen>
+    <dimen name="padEdtPass">15dp</dimen>
+
+</resources>
