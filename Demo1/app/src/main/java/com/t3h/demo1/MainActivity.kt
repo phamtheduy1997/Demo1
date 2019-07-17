@@ -5,16 +5,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.regex.Pattern
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
@@ -49,7 +45,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
-            val intent = Intent(this, PetsActivity::class.java)
+            val intent = Intent(this, PetsFragment::class.java)
             startActivity(intent)
         }
     }
@@ -68,7 +64,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         if (password.length<=8){
             Toast.makeText(this,"Invalid Password",Toast.LENGTH_SHORT).show()
         }else{
-            val intent = Intent(this, PetsActivity::class.java)
+            val intent = Intent(this, PetsFragment::class.java)
             startActivity(intent)
         }
     }

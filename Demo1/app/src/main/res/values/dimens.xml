@@ -26,5 +26,7 @@
     <dimen name="widthBTNSignInLAND">0dp</dimen>
     <dimen name="kc">5dp</dimen>
     <dimen name="padEdtPass">15dp</dimen>
+    <dimen name="mRFTB">30dp</dimen>
+    <dimen name="mBotFTB">30dp</dimen>
 
 </resources>
