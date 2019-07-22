@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pets</string>
+    <string name="signin">Sign In</string>
+    <string name="speak">Speak, friend, and enter</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+</resources>

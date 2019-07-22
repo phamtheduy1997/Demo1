@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Demo1</string>
-    <string name="signin">로그인</string>
-    <string name="speak">말하고, 친구로</string>
-    <string name="email">이메일</string>
-    <string name="password">암호</string>
-</resources>
