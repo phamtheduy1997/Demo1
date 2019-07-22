@@ -25,9 +25,9 @@ class PetsFragment : AppCompatActivity(){
         val f1 = Pets.newInstance("Dogs")
         adapter.addFragmnet(f1,"Dogs")
         val f2 = Pets.newInstance("Cats")
-        adapter.addFragmnet(f1,"Cats")
+        adapter.addFragmnet(f2,"Cats")
         val f3 = Pets.newInstance("Birds")
-        adapter.addFragmnet(f1,"Birds")
+        adapter.addFragmnet(f3,"Birds")
         pager?.adapter = adapter
 
     }
@@ -43,8 +43,6 @@ class PetsFragment : AppCompatActivity(){
             fragments.add(fragment)
             titles.add(title)
         }
-
-
 
 
     }
