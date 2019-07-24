@@ -1,18 +1,29 @@
 package com.t3h.demo1
 
+import android.R.*
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DialogTitle
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.animation.ScaleAnimation
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory
+import com.rikkei.pets.api.ImageDogApi
 import com.t3h.demo1.api.DogApi
 import kotlinx.android.synthetic.main.activity_pets.*
+import kotlinx.android.synthetic.main.pets.*
+import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -28,15 +39,57 @@ class PetsActivity : AppCompatActivity() {
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
     var api = retrofit.create(DogApi::class.java)
+    var apiImage = retrofit.create(ImageDogApi::class.java)
     var dogList : ArrayList<String> = ArrayList()
+    var toggle = ActionBarDrawerToggle(this,drawer,toolbar,R.string.app_name,R.string.app_name)
+    //    var actionbar = getSupportActionBar()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pets)
         initViews()
         DogBreedList()
+        DrawerLayout()
+//        RandomImageDog()
         setSupportActionBar(toolbar)
         tabs.setupWithViewPager(pager)
+
+//        setSupportActionBar(toolbar_drawer)
+//        actionbar?.setDisplayHomeAsUpEnabled(true)
+//        actionbar?.setHomeAsUpIndicator(R.drawable.menu_white)
     }
+
+    private fun DrawerLayout() {
+        drawer.addDrawerListener(toggle)
+        toggle.isDrawerIndicatorEnabled
+        toggle.syncState()
+    }
+
+    private fun RandomImageDog() {
+        Log.i("Random Image","Yep")
+        var callImage = apiImage.ImageDog("$dogList")
+        callImage.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful){
+                    if (response.body()!=null){
+                        var bmp = BitmapFactory.decodeStream(response.body()!!.byteStream())
+                        dog_image.setImageBitmap(bmp)
+                    }else{
+
+                    }
+                }else{
+
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+            }
+
+
+
+        })
+
+    }
+
     private fun initViews() {
         pager.adapter = PetsAdapter(supportFragmentManager)
         tabs.setupWithViewPager(pager)
@@ -51,6 +104,7 @@ class PetsActivity : AppCompatActivity() {
                         Log.i("Success",response.body().toString())
                         val json =response.body().toString()
                         convertToDogBreed(json)
+
                     }else{
                         Log.i("No Response","Empty Response")
                     }
@@ -76,8 +130,10 @@ class PetsActivity : AppCompatActivity() {
                 val adapter = PetsAdapter(supportFragmentManager)
                 for (dog in dogList){
                     Log.d("Dog",dog+"\n")
-                    val breed = Pets.newInstance("Dogs")
+                    menuItem(dog)
+                    val breed = Pets.newInstance("")
                     adapter.addFragment(breed,"$dog")
+
                 }
                 pager.adapter = adapter
             }else{
@@ -87,7 +143,34 @@ class PetsActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_pets,menu)
+        return true
+    }
 
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        if (item!!.getItemId()== android.R.id.home){
+//
+//        }
+//        if (toggle.onOptionsItemSelected(item)){
+//            return true
+//        }
+//
+//        return super.onOptionsItemSelected(item)
+//    }
+    fun menuItem(dog: String) {
+        navigation.menu.add(dog)
+    }
+
+    override fun onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START)
+        }else{
+            super.onBackPressed()
+
+        }
+
+    }
 
 //    private fun setupViewPager(pager: ViewPager?) {
 //        val adapter = PetsAdapter(supportFragmentManager)

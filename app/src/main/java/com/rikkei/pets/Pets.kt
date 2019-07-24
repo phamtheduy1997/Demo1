@@ -17,6 +17,7 @@ class Pets : Fragment() {
             fragment.arguments = bundle
             return fragment
         }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

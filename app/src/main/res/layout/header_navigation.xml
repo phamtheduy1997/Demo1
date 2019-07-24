@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:paddingLeft="20dp"
+                android:background="@color/colorPrimary">
+    <ImageView
+            android:id="@+id/im_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/avatar"/>
+    <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/im_avatar"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textSize="27sp"
+            android:text="Duy"/>
+    <TextView
+            android:id="@+id/tv_emailpets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="10dp"
+            android:text="phamduy2479@gmail.com"
+    />
+</RelativeLayout>

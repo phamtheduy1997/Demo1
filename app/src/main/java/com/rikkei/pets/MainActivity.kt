@@ -12,14 +12,13 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+class   MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         Log.d("Connect","onConnnectionFailed"+connectionResult)
     }
     private val RC_SIGN_IN = 1
     private var mGoogleApiClient: GoogleApiClient? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
