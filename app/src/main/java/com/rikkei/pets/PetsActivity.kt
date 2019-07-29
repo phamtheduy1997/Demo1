@@ -1,8 +1,10 @@
 package com.t3h.demo1
 
 import android.R.*
+import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v4.app.FragmentManager
@@ -20,8 +22,10 @@ import android.view.MenuItem
 import android.view.animation.ScaleAnimation
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory
 import com.rikkei.pets.api.ImageDogApi
+import com.squareup.picasso.Picasso
 import com.t3h.demo1.api.DogApi
 import kotlinx.android.synthetic.main.activity_pets.*
+import kotlinx.android.synthetic.main.header_navigation.*
 import kotlinx.android.synthetic.main.pets.*
 import okhttp3.ResponseBody
 import org.json.JSONException
@@ -41,8 +45,7 @@ class PetsActivity : AppCompatActivity() {
     var api = retrofit.create(DogApi::class.java)
     var apiImage = retrofit.create(ImageDogApi::class.java)
     var dogList : ArrayList<String> = ArrayList()
-    var toggle = ActionBarDrawerToggle(this,drawer,toolbar,R.string.app_name,R.string.app_name)
-    //    var actionbar = getSupportActionBar()
+    lateinit var toggle : ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pets)
@@ -52,20 +55,50 @@ class PetsActivity : AppCompatActivity() {
 //        RandomImageDog()
         setSupportActionBar(toolbar)
         tabs.setupWithViewPager(pager)
-
+//        EmailInfo()
 //        setSupportActionBar(toolbar_drawer)
 //        actionbar?.setDisplayHomeAsUpEnabled(true)
 //        actionbar?.setHomeAsUpIndicator(R.drawable.menu_white)
     }
 
+    private fun EmailInfo() {
+        var strUser = intent.getStringExtra("Name")
+        var strEmail = intent.getStringExtra("Email")
+        var strAvaterUrl = intent.getStringExtra("Avatar")
+        tv_name.setText(strUser)
+        tv_emailpets.setText(strEmail)
+        Picasso.with(getApplicationContext()).load(strAvaterUrl).into(im_avatar)
+    }
+
     private fun DrawerLayout() {
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        toggle = ActionBarDrawerToggle(this,drawer,toolbar,R.string.open,R.string.close)
         drawer.addDrawerListener(toggle)
-        toggle.isDrawerIndicatorEnabled
         toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setHomeButtonEnabled(true)
+//        toggle.isDrawerIndicatorEnabled
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == android.R.id.home) {}
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+
+    }
+    override fun onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START)
+        }else{
+            super.onBackPressed()
+        }
     }
 
     private fun RandomImageDog() {
-        Log.i("Random Image","Yep")
+        Log.i("Random Image","Display")
         var callImage = apiImage.ImageDog("$dogList")
         callImage.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -111,7 +144,6 @@ class PetsActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<String>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
         })
@@ -161,28 +193,5 @@ class PetsActivity : AppCompatActivity() {
     fun menuItem(dog: String) {
         navigation.menu.add(dog)
     }
-
-    override fun onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START)
-        }else{
-            super.onBackPressed()
-
-        }
-
-    }
-
-//    private fun setupViewPager(pager: ViewPager?) {
-//        val adapter = PetsAdapter(supportFragmentManager)
-//        val f1 = Pets.newInstance("Dogs")
-//        adapter.addFragment(f1, "Dogs")
-//        val f2 = Pets.newInstance("Cats")
-//        adapter.addFragment(f2, "Cats")
-//        val f3 = Pets.newInstance("Birds")
-//        adapter.addFragment(f3, "Birds")
-//        pager?.adapter = adapter
-//
-//    }
-
 
 }
