@@ -1,8 +1,12 @@
-package com.t3h.demo1
+package com.rikkei.pets
 
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.app.Fragment as Fragment
+
+//import android.support.v4.app.FragmentManager
+//import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+//import android.support.v4.app.Fragment as Fragment
 
 class PetsAdapter (manager: FragmentManager):FragmentPagerAdapter(manager){
     val fragments = ArrayList<Fragment>()

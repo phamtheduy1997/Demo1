@@ -1,1 +1,48 @@
-{"web":{"client_id":"426591119776-ngv5fmq8d9tv66ud1ochvlhugs65mjm1.apps.googleusercontent.com","project_id":"demo1-1562746434872","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"m3kLmHCZPg7B_0OFcY2CgdUg"}}
+{
+  "project_info": {
+    "project_number": "305039711512",
+    "firebase_url": "https://pets-5a2eb.firebaseio.com",
+    "project_id": "pets-5a2eb",
+    "storage_bucket": "pets-5a2eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305039711512:android:36c51af3feb013ca",
+        "android_client_info": {
+          "package_name": "com.rikkei.pets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305039711512-buj62c3jeu3htm762a4hkgge9c1kjvec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rikkei.pets",
+            "certificate_hash": "1062c3a482a10ac0e3feb8a4a94ab4227e329b13"
+          }
+        },
+        {
+          "client_id": "305039711512-t391avt3v2vtep2ja3n58bj8l6h211g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDoa1A6iSj2771nHAFuTihHj2loT0G-fM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305039711512-t391avt3v2vtep2ja3n58bj8l6h211g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

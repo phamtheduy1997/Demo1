@@ -1,29 +1,33 @@
-package com.t3h.demo1
+package com.rikkei.pets
+
 
 import android.R.*
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DialogTitle
-import android.support.v7.widget.RecyclerView
+//import android.support.v4.app.Fragment
+//import android.support.v4.view.ViewPager
+//import android.support.v4.app.FragmentManager
+//import android.support.v4.app.FragmentPagerAdapter
+//import android.support.v4.view.GravityCompat
+//import android.support.v4.widget.DrawerLayout
+//import android.support.v7.app.ActionBarDrawerToggle
+//import android.support.v7.app.AppCompatActivity
+//import android.support.v7.widget.DialogTitle
+//import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.animation.ScaleAnimation
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory
 import com.rikkei.pets.api.ImageDogApi
 import com.squareup.picasso.Picasso
-import com.t3h.demo1.api.DogApi
+import com.rikkei.pets.api.DogApi
 import kotlinx.android.synthetic.main.activity_pets.*
 import kotlinx.android.synthetic.main.header_navigation.*
 import kotlinx.android.synthetic.main.pets.*
@@ -54,7 +58,8 @@ class PetsActivity : AppCompatActivity() {
         DrawerLayout()
 //        RandomImageDog()
         setSupportActionBar(toolbar)
-        tabs.setupWithViewPager(pager)
+//        tabs.setupWithViewPager(pager)
+
 //        EmailInfo()
 //        setSupportActionBar(toolbar_drawer)
 //        actionbar?.setDisplayHomeAsUpEnabled(true)

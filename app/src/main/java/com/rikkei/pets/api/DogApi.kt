@@ -1,4 +1,4 @@
-package com.t3h.demo1.api
+package com.rikkei.pets.api
 
 import okhttp3.ResponseBody
 import retrofit2.Call
