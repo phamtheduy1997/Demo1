@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -66,8 +65,7 @@ class   MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
                 }
             } catch (e: ApiException) {
             }
-            val intent = Intent(this, PetsActivity::class.java)
-            startActivity(intent)
+
         }
     }
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
@@ -77,13 +75,14 @@ class   MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = mAuth.currentUser
+                    val intent = Intent(this, PetsActivity::class.java)
+                    startActivity(intent)
                     updateUI(user)
                 } else {
                     Toast.makeText(this,"Auth Failed",Toast.LENGTH_LONG).show()
                     updateUI(null)
                 }
 
-                // ...
             }
     }
 
@@ -94,7 +93,7 @@ class   MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
     }
     fun updateUI(user: FirebaseUser?){
         if(user != null){
-            Toast.makeText(this,"Hello ${user.displayName}",Toast.LENGTH_LONG).show()
+
         }
     }
     private fun emailValidate() {
