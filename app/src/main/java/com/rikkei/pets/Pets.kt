@@ -33,6 +33,7 @@ class Pets : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.text_pets.setText(text)
+//        view.text_pets.setText(text)
+
     }
 }

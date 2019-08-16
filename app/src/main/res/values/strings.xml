@@ -6,5 +6,7 @@
     <string name="password">Password</string>
     <string name="open" translatable="false">Open</string>
     <string name="close" translatable="false">Close</string>
+    <string name="duy" translatable="false">Duy</string>
+    <string name="email_duy" translatable="false">duy123@gmail.com</string>
 
 </resources>

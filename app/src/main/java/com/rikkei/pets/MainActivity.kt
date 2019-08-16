@@ -43,13 +43,13 @@ class   MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso)
 
 
-        btn_signin.setOnClickListener(View.OnClickListener {
+        btn_signin.setOnClickListener{
             emailValidate()
-        })
-        btn_gg_signin.setOnClickListener(View.OnClickListener {
+        }
+        btn_gg_signin.setOnClickListener{
             val signInIntent = mGoogleSignInClient.getSignInIntent()
             startActivityForResult(signInIntent, RC_SIGN_IN)
-        })
+        }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -97,7 +97,7 @@ class   MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
         }
     }
     private fun emailValidate() {
-        var email : String = edt_email.getText().toString().trim()
+        val email : String = edt_email.getText().toString().trim()
         if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             passValidate()
         }else{

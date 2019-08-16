@@ -1,46 +1,37 @@
 package com.rikkei.pets
 
 
-import android.R.*
-import android.content.res.Configuration
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
-//import android.support.v4.app.Fragment
-//import android.support.v4.view.ViewPager
-//import android.support.v4.app.FragmentManager
-//import android.support.v4.app.FragmentPagerAdapter
-//import android.support.v4.view.GravityCompat
-//import android.support.v4.widget.DrawerLayout
-//import android.support.v7.app.ActionBarDrawerToggle
-//import android.support.v7.app.AppCompatActivity
-//import android.support.v7.widget.DialogTitle
-//import android.support.v7.widget.RecyclerView
+import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.animation.ScaleAnimation
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.core.Constants
-import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory
+import com.rikkei.pets.adapter.GalleryAdapter
+import com.rikkei.pets.adapter.PetsAdapter
 import com.rikkei.pets.api.ImageDogApi
 import com.squareup.picasso.Picasso
 import com.rikkei.pets.api.DogApi
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_pets.*
-import kotlinx.android.synthetic.main.header_navigation.*
+import kotlinx.android.synthetic.main.gv_item.*
 import kotlinx.android.synthetic.main.pets.*
 import okhttp3.ResponseBody
 import org.json.JSONException
@@ -58,6 +49,11 @@ class PetsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var ivProfilePicture: CircleImageView
     lateinit var tvName: TextView
     lateinit var tvEmail: TextView
+    val PICK_IMAGE_MULTIPLE = 1
+    val PERMISSION = 2
+    lateinit var imageEncoded: String
+    lateinit var imagesEncodedList: MutableList<String>
+    lateinit var galleryAdapter: GalleryAdapter
 
     var retrofit = Retrofit.Builder()
             .baseUrl("https://dog.ceo/api/")
@@ -71,14 +67,16 @@ class PetsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pets)
+
         firebaseAuth = FirebaseAuth.getInstance()
         initViews()
         DogBreedList()
         DrawerLayout()
         EmailInfo()
-//        RandomImageDog()
+        RandomImageDog()
         setSupportActionBar(toolbar)
-        //navigation.setNavigationItemSelectedListener(this)
+        navigation.setNavigationItemSelectedListener(this)
+        checkPermission()
     }
 
     private fun EmailInfo() {
@@ -88,7 +86,7 @@ class PetsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val user = firebaseAuth?.currentUser
         tvName.text = user?.displayName
         tvEmail.text = user?.email
-        Picasso.with(this)
+        Picasso.get()
             .load(user?.photoUrl)
             .into(ivProfilePicture)
     }
@@ -103,7 +101,7 @@ class PetsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item!!.itemId == id.home) {}
+        if (item!!.itemId == android.R.id.home) {}
         if(toggle.onOptionsItemSelected(item)){
             return true
         }
@@ -120,13 +118,13 @@ class PetsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun RandomImageDog() {
         Log.i("Random Image","Display")
-        var callImage = apiImage.ImageDog("$dogList")
+        val callImage = apiImage.ImageDog("$dogList")
         callImage.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful){
                     if (response.body()!=null){
-                        var bmp = BitmapFactory.decodeStream(response.body()!!.byteStream())
-                        dog_image.setImageBitmap(bmp)
+                        val bmp = BitmapFactory.decodeStream(response.body()!!.byteStream())
+                        im_dog.setImageBitmap(bmp)
                     }else{
 
                     }
@@ -146,16 +144,14 @@ class PetsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tabs.setupWithViewPager(pager)
     }
     private fun DogBreedList() {
-        var call = api.DogBreed()
+        val call = api.DogBreed()
         call.enqueue(object : Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                Log.i("Response",response.body().toString())
                 if (response.isSuccessful()){
                     if (response.body() != null){
                         Log.i("Success",response.body().toString())
                         val json =response.body().toString()
                         convertToDogBreed(json)
-
                     }else{
                         Log.i("No Response","Empty Response")
                     }
@@ -178,40 +174,144 @@ class PetsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     dogList.add(key)
                 }
                 val adapter = PetsAdapter(supportFragmentManager)
-                for (dog in dogList){
-                    Log.d("Dog",dog+"\n")
-                    menuItem(dog)
-                    val breed = Pets.newInstance("")
-                    adapter.addFragment(breed,"$dog")
+                for (dog in dogList.indexOf(dogList[0])  until dogList.indexOf(dogList[40])){
+                    menuItem(dogList[dog],dog)
+                    val breed = Pets.newInstance(dogList[dog])
+                    adapter.addFragment(breed,dogList[dog])
 
                 }
                 pager.adapter = adapter
             }else{
-                Log.d("Tag","Get Json Failed")
+                Log.d("Tag","Failed")
             }
         }catch (e: JSONException){
             e.printStackTrace()
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_pets,menu)
+        menuInflater.inflate(R.menu.drawer_view,menu)
         return true
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        if (item!!.getItemId()== android.R.id.home){
-//
-//        }
-//        if (toggle.onOptionsItemSelected(item)){
-//            return true
-//        }
-//
-//        return super.onOptionsItemSelected(item)
-//    }
-    fun menuItem(dog: String) {
-        navigation.menu.add(dog)
+
+    fun menuItem(dog: String,id:Int) {
+        navigation.menu.add(1,id,id,dog.toUpperCase())
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        var t = item.itemId
+        when(t){
+            t->{
+                pager.currentItem = t
+                drawer.closeDrawer(GravityCompat.START)
+            }
+        }
         return true
     }
+    private fun checkPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_DENIED){
+                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                requestPermissions(permissions, PERMISSION)
+            }
+            else{
+                addImage()
+            }
+        }
+        else{
+            addImage()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when(requestCode){
+            PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    addImage()
+                }
+                else{
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+    fun addImage(){
+        fbtn_add.setOnClickListener{
+            var intent = Intent()
+            intent.setType("image/*")
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
+            intent.setAction(Intent.ACTION_GET_CONTENT)
+            startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_MULTIPLE)
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        try {
+            if (requestCode == PICK_IMAGE_MULTIPLE && resultCode ==RESULT_OK
+                && null != data) {
+
+                val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+                imagesEncodedList = java.util.ArrayList()
+                if (data.data != null) {
+
+                    val mImageUri = data.data
+
+                    val cursor = contentResolver.query(mImageUri!!,
+                        filePathColumn, null, null, null)
+                    cursor!!.moveToFirst()
+
+                    val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+                    imageEncoded = cursor.getString(columnIndex)
+                    cursor.close()
+
+                    val mArrayUri = java.util.ArrayList<Uri>()
+                    mArrayUri.add(mImageUri)
+                    galleryAdapter = GalleryAdapter(applicationContext, mArrayUri)
+                    gv!!.adapter = galleryAdapter
+                    gv!!.verticalSpacing = gv!!.horizontalSpacing
+                    val mlp = gv!!
+                        .layoutParams as ViewGroup.MarginLayoutParams
+                    mlp.setMargins(0, gv!!.horizontalSpacing, 0, 0)
+
+                } else {
+                    if (data.clipData != null) {
+                        val mClipData = data.clipData
+                        val mArrayUri = java.util.ArrayList<Uri>()
+                        for (i in 0 until mClipData!!.itemCount) {
+
+                            val item = mClipData!!.getItemAt(i)
+                            val uri = item.uri
+                            mArrayUri.add(uri)
+                            val cursor = contentResolver.query(uri, filePathColumn, null, null, null)
+                            cursor!!.moveToFirst()
+
+                            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+                            imageEncoded = cursor.getString(columnIndex)
+                            imagesEncodedList.add(imageEncoded)
+                            cursor.close()
+
+                            galleryAdapter = GalleryAdapter(applicationContext, mArrayUri)
+                            gv!!.adapter = galleryAdapter
+                            gv!!.verticalSpacing = gv!!.horizontalSpacing
+                            val mlp = gv!!
+                                .layoutParams as ViewGroup.MarginLayoutParams
+                            mlp.setMargins(0, gv!!.horizontalSpacing, 0, 0)
+
+                        }
+                        Log.v("LOG_TAG", "Selected Images" + mArrayUri.size)
+                    }
+                }
+            } else {
+                Toast.makeText(this, "You haven't picked Image",
+                    Toast.LENGTH_LONG).show()
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "ERROR", Toast.LENGTH_LONG)
+                .show()
+        }
+
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 }
+

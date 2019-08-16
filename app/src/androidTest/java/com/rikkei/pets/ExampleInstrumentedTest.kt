@@ -1,7 +1,9 @@
-package com.t3h.demo1
+@file:Suppress("DEPRECATION")
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+package com.rikkei.pets
+
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 
 import org.junit.Test
 import org.junit.runner.RunWith

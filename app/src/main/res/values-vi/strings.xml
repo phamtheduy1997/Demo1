@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Pets</string>
     <string name="signin">Đăng nhập</string>
-    <string name="speak">Nói chuyện, kết bạn, và hơn thế</string>
+    <string name="speak">Trò chuyện, kết bạn, và hơn thế</string>
     <string name="email">Email</string>
     <string name="password">Mật khẩu</string>
 </resources>
